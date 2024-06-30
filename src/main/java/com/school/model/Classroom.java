@@ -3,12 +3,18 @@ package com.school.model;
 
 
 
+import java.util.HashSet;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 
 @Entity
@@ -26,6 +32,9 @@ public class Classroom {
     private Long classroomId;
     private int room;
     private int building;
+
+    @OneToMany(mappedBy = "classroom")
+    private List<Student> students;
 
     public Classroom() {
     }
@@ -55,6 +64,19 @@ public class Classroom {
         this.building = building;
     }
 
+    public List<Student> getStudents() {
+        return students;
+    }
 
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
 
+    @Override
+    public String toString() {
+        return "Classroom [classroomId=" + classroomId + ", room=" + room + ", building=" + building + ", students="
+                + students + "]";
+    }
+
+    
 }

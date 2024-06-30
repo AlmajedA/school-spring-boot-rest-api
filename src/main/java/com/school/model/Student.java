@@ -1,9 +1,15 @@
 package com.school.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 
 @Entity
@@ -23,12 +29,17 @@ public class Student {
     private String name;
     private String major;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "classroom_id")
+    private Classroom classroom;
+
     public Student() {
     }
 
     public Student(String name, String major) {
         this.name = name;
         this.major = major;
+
     }
 
     public Long getStudentId() {
@@ -53,5 +64,13 @@ public class Student {
 
     public void setMajor(String major) {
         this.major = major;
-    } 
+    }
+
+    public Classroom getClassroom() {
+        return classroom;
+    }
+
+    public void setClassroom(Classroom classroom) {
+        this.classroom = classroom;
+    }
 }

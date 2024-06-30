@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.school.DTO.ClassroomDTO;
 import com.school.DTO.StudentDTO;
+import com.school.repository.ClassroomRepository;
+import com.school.service.ClassroomService;
 import com.school.service.StudentService;
 
 @RestController
@@ -22,11 +25,13 @@ public class StudentController {
 
 
     private StudentService studentService;
+    private ClassroomService classroomService;
     
 
     // Autowiring studentService
-    public StudentController(StudentService studentService) {
+    public StudentController(StudentService studentService, ClassroomService classroomService) {
         this.studentService = studentService;
+        this.classroomService = classroomService;
     }
 
     @PostMapping
@@ -47,6 +52,11 @@ public class StudentController {
     @PutMapping(path = "/{id}")
     public void updateStudent(@PathVariable Long id, @RequestParam String name, @RequestParam String major){
         studentService.updateStudentService(id, name, major);
+    }
+
+    @PutMapping(path = "/{studentId}/assign-classroom/{classroomId}")
+    public void assignStudentToClassroom(@PathVariable Long studentId, @PathVariable Long classroomId){
+        studentService.assignStudentToClassroomService(studentId, classroomId); 
     }
 
     
