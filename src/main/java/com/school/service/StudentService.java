@@ -4,9 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.school.DTO.ClassroomDTO;
 import com.school.DTO.StudentDTO;
-import com.school.Mapper.ClassroomMapper;
 import com.school.Mapper.StudentMapper;
 import com.school.model.Classroom;
 import com.school.model.Student;

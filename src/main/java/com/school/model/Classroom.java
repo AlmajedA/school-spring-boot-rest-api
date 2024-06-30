@@ -3,11 +3,8 @@ package com.school.model;
 
 
 
-import java.util.HashSet;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 
