@@ -6,6 +6,7 @@ public class StudentDTO {
     private final String major;
     private final SimplifiedClassroomDTO classroom;
 
+    
     public StudentDTO(Long studentId, String name, String major, SimplifiedClassroomDTO classroom) {
         this.studentId = studentId;
         this.name = name;
