@@ -1,6 +1,3 @@
-# school-spring-boot-rest-api
-
-
 # School Spring Boot REST API
 
 Root URL: `http://localhost:8080`
