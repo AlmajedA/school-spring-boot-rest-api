@@ -20,6 +20,11 @@ Root URL: `http://localhost:8080`
   - Method: `GET`
   - Endpoint: `/v1/students/{id}`
   - Description: Returns the student with the selected ID.
+ 
+- **Update student**
+  - Method: `PUT`
+  - Endpoint: `/v1/students/{id}`
+  - Description: Update a new student by receiving a body request with `name` and `major`.
 
 - **Assign student to a classroom**
   - Method: `PUT`
@@ -42,6 +47,11 @@ Root URL: `http://localhost:8080`
   - Method: `GET`
   - Endpoint: `/v1/classrooms/{id}`
   - Description: Returns the classroom with the selected ID.
+ 
+- **Update classroom**
+  - Method: `PUT`
+  - Endpoint: `/v1/classrooms/{id}`
+  - Description: Update a new student by receiving a body request with `room` and `building`.
 
 ## Testing
 
@@ -65,7 +75,7 @@ Root URL: `http://localhost:8080`
   ```json
   {
     "name": "Ammar",
-    "building": "SWE"
+    "major": "SWE"
   }
   ```
 
