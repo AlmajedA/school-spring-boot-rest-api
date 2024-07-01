@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.school.DTO.ClassroomDTO;
 import com.school.Mapper.ClassroomMapper;
+import com.school.exception.NotFoundException;
 import com.school.model.Classroom;
 import com.school.repository.ClassroomRepository;
 
@@ -24,14 +25,13 @@ public class ClassroomService {
         this.classroomMapper = classroomMapper;
     }
 
-    public void createClassroomService(ClassroomDTO classroomDTO){
-        Classroom classroom = classroomMapper.classroomDTOToClassroom(classroomDTO);
+    public void createClassroomService(Classroom classroom){
         classroomRepository.save(classroom);
     }
 
     public ClassroomDTO getClassroomByIdService(Long id){
         Classroom classroom = classroomRepository.findById(id)
-        .orElseThrow(() -> new IllegalStateException("Classroom is not exist"));
+        .orElseThrow(() -> new NotFoundException("Classroom is not exist"));
 
         ClassroomDTO classroomDTO = classroomMapper.classroomToClassroomDTO(classroom);
         return classroomDTO;
@@ -46,12 +46,12 @@ public class ClassroomService {
     }
 
     @Transactional
-    public void updateClassroom(Long id, int room, int building){
+    public void updateClassroom(Long id, Classroom classroomDetails){
         Classroom classroom = classroomRepository.findById(id)
-        .orElseThrow(() -> new IllegalStateException("Classroom is not exist"));
+        .orElseThrow(() -> new NotFoundException("Classroom is not exist"));
 
-        classroom.setRoom(room);
-        classroom.setBuilding(building);
+        classroom.setRoom(classroomDetails.getRoom());
+        classroom.setBuilding(classroomDetails.getBuilding());
     }
 
 }

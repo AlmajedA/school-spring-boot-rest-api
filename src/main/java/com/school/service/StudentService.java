@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.school.DTO.StudentDTO;
 import com.school.Mapper.StudentMapper;
+import com.school.exception.NotFoundException;
 import com.school.model.Classroom;
 import com.school.model.Student;
 import com.school.repository.ClassroomRepository;
@@ -31,15 +32,14 @@ public class StudentService {
     }
 
     // Create Student
-    public void createStudentService(StudentDTO studentDTO){
-        Student student = studentMapper.studentDTOToStudent(studentDTO);
+    public void createStudentService(Student student){
         studentRepository.save(student);
     }
 
     // Get Student By ID 
     public StudentDTO getStudentByIdService(Long id){
         Student student = studentRepository.findById(id)
-        .orElseThrow(() -> new IllegalStateException("student with id: " + id + " does not exist"));
+        .orElseThrow(() -> new NotFoundException("student with id: " + id + " does not exist"));
 
         return studentMapper.studentToStudentDTO(student);
     }
@@ -52,23 +52,23 @@ public class StudentService {
 
     // Update Student
     @Transactional
-    public void updateStudentService(Long id, String name, String major){
+    public void updateStudentService(Long id, Student studentDetails){
         
         Student student = studentRepository.findById(id)
-        .orElseThrow(() -> new IllegalStateException("student with id: " + id + " does not exist"));
+        .orElseThrow(() -> new NotFoundException("student with id: " + id + " does not exist"));
 
-        student.setName(name);
-        student.setMajor(major);
+        student.setName(studentDetails.getName());
+        student.setMajor(studentDetails.getMajor());
     }
 
     // Assign student to a class service
     @Transactional
     public void assignStudentToClassroomService(Long studentId, Long classroomId){
         Student student = studentRepository.findById(studentId)
-        .orElseThrow(() -> new IllegalStateException("student with id: " + studentId + " does not exist"));
+        .orElseThrow(() -> new NotFoundException("student with id: " + studentId + " does not exist"));
         
         Classroom classroom = classroomRepository.findById(classroomId)
-        .orElseThrow(() -> new IllegalStateException("classroom with id: " + classroomId + " does not exist"));
+        .orElseThrow(() -> new NotFoundException("classroom with id: " + classroomId + " does not exist"));
         student.setClassroom(classroom);
     }
     
